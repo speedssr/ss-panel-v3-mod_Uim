@@ -42,7 +42,7 @@
 									<div class="card-inner">
 										<p class="card-heading">充值码</p>
 										<i class="icon icon-lg">view_compact</i>&nbsp;仪表盘
-							<p>当前余额：{$user->money} 元</p>
+							<p id="money">当前余额：{$user->money} 元</p>
 										<div class="form-group form-group-label">
 											<label class="floating-label" for="code">充值码</label>
 											<input class="form-control" id="code" type="text">
@@ -243,6 +243,25 @@
 			})
 		});
 	timestamp = {time()};
+
+
+	function m(){
+		$.ajax({
+			type: "GET",
+			url: "code_check",
+			dataType: "json",
+			data: {
+				time: 'm'
+			},
+			success: function (data) {
+				if (data.ret) {
+					$("#money").html("当前余额："+data.money+" 元");
+				}
+			}
+		});
+		mid = setTimeout(m, 1000); //循环调用触发setTimeout
+	}
+	setTimeout(m, 1000);
 
 
 	function f(){

@@ -342,6 +342,12 @@ class UserController extends BaseController
     public function code_check($request, $response, $args)
     {
         $time = $request->getQueryParams()["time"];
+        if ($time=="m"){
+            $user = $this->user;
+            $res['ret'] = 1;
+            $res['money'] = $user->money;
+            return $response->getBody()->write(json_encode($res));
+        }
         $codes = Code::where('userid', '=', $this->user->id)->where('usedatetime', '>', date('Y-m-d H:i:s', $time))->first();
         if ($codes!=null && strpos($codes->code, "充值") !== false) {
             $res['ret'] = 1;
