@@ -692,7 +692,7 @@ class Pay
             $sign .= "$key=$val"; //拼接为url参数形式
         }
         if (!$_POST['pay_no'] || md5($sign . $codepay_key) != $_POST['sign']) { //不合法的数据
-            exit('fail'); //返回成功 不要删除哦
+            exit('fail'); //返回失败，等待下次回调
         } else { //合法的数据
             //业务处理
             $pay_id = $_POST['pay_id']; //需要充值的ID 或订单号 或用户名
@@ -732,7 +732,7 @@ class Pay
             }
         }
         if ($codeq!=null){
-
+            exit('success'); //返回成功 不要删除哦
         return;
         }
     }
